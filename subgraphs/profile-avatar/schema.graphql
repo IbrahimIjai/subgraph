@@ -2,18 +2,15 @@ type User @entity {
   id: ID!                      # wallet address
   ownedTokens: [Token!]!       @derivedFrom(field: "owner")
   currentPFP: Token
-  tokenCount: BigInt!          # number of tokens owned
-  createdAt: BigInt!           # first interaction timestamp
-  updatedAt: BigInt!           # last interaction timestamp
+  tokenCount: BigInt!
 }
 
 type Token @entity {
   id: ID!                      # tokenId
   uri: String
   owner: User!
-  createdAt: BigInt!           # mint timestamp
-  updatedAt: BigInt!           # last transfer timestamp
-  transferCount: BigInt!       # number of transfers
+  createdAt: BigInt!
+  updatedAt: BigInt!
 }
 
 type PFUpdated @entity(immutable: true) {

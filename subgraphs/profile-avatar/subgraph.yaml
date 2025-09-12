@@ -8,9 +8,9 @@ dataSources:
     name: KoanProfile
     network: base-sepolia
     source:
-      address: "0xc355466cbb7d92533eeb5f7f855af6243ef3481d"
+      address: "0x1Db966b53DdF1c5874F2E07d7e6e5244Ed67598B"
       abi: KoanProfile
-      startBlock: 30788028
+      startBlock: 30886743
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
