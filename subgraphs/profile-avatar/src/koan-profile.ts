@@ -6,23 +6,14 @@ import { User, Token, PFUpdated, Transfer } from "../generated/schema";
 import { Address, BigInt } from "@graphprotocol/graph-ts";
 
 export function handlePFUpdated(event: PFUpdatedEvent): void {
-	console.log(
-		"Handling PFUpdated event for user: " +
-			event.params.user.toHexString() +
-			" with tokenId: " +
-			event.params.tokenId.toString(),
-	
-		);
 
 	
 	let user = getOrCreateUser(event.params.user);
 
-	console.log("User loaded/created: " + user.id);
 	let token = Token.load(event.params.tokenId.toString());
 
 	if (token) {
 		user.currentPFP = token.id;
-		console.log("Setting user's currentPFP to tokenId: " + token.id);
 		user.save();
 	}
 
