@@ -1,0 +1,8 @@
+{
+  "base-sepolia": {
+    "KoanProfile": {
+      "address": "0xc355466cbb7d92533eeb5f7f855af6243ef3481d",
+      "startBlock": 30788028
+    }
+  }
+}
