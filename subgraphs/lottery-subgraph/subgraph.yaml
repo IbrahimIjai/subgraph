@@ -20,7 +20,7 @@ dataSources:
         - User
         - Round
       abis:
-        - name: KoanProfile
+        - name: Lottery
           file: ./abis/lottery.json
       eventHandlers:
         - event: LotteryOpen(indexed uint256,uint256,uint256,uint256,uint256,uint256)
