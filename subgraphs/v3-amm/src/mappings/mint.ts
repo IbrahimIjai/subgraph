@@ -7,19 +7,19 @@ import {
 	Pool,
 	Tick,
 	Token,
-} from "../../../generated/schema";
-import { Mint as MintEvent } from "../../../generated/templates/Pool/Pool";
-import { convertTokenToDecimal, loadTransaction } from "../../utils";
-import { FACTORY_ADDRESS, ONE_BI } from "../../utils/constants";
+} from "../../generated/schema";
+import { Mint as MintEvent } from "../../generated/templates/Pool/Pool";
+import { convertTokenToDecimal, loadTransaction } from "../utils";
+import { FACTORY_ADDRESS, ONE_BI } from "../utils/constants";
 import {
 	updatePoolDayData,
 	updatePoolHourData,
 	updateTokenDayData,
 	updateTokenHourData,
 	updateUniswapDayData,
-} from "../../utils/intervalUpdates";
-import { createTick } from "../../utils/tick";
-import { updateUserMintActivity } from "../../utils/user";
+} from "../utils/intervalUpdates";
+import { createTick } from "../utils/tick";
+import { updateUserMintActivity } from "../utils/user";
 
 export function handleMint(event: MintEvent): void {
 	const factoryAddress = FACTORY_ADDRESS;

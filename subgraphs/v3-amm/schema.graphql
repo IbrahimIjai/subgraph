@@ -393,19 +393,6 @@ type Collect @entity {
 	logIndex: BigInt
 }
 
-type User @entity {
-	# user wallet address
-	id: ID!
-
-	swapCount: BigInt!
-	mintCount: BigInt!
-	increaseCount: BigInt!
-
-	totalVolumeUSD: BigDecimal!
-	totalSwapVolumeUSD: BigDecimal!
-	totalMintVolumeUSD: BigDecimal!
-}
-
 type Flash @entity {
 	# transaction hash + "-" + index in collect Transaction array
 	id: ID!

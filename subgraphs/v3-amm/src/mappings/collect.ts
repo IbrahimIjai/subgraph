@@ -6,18 +6,18 @@ import {
 	Factory,
 	Pool,
 	Token,
-} from "../../../generated/schema";
-import { Collect as CollectEvent } from "../../../generated/templates/Pool/Pool";
-import { convertTokenToDecimal, loadTransaction } from "../../utils";
-import { FACTORY_ADDRESS, ONE_BI } from "../../utils/constants";
+} from "../../generated/schema";
+import { Collect as CollectEvent } from "../../generated/templates/Pool/Pool";
+import { convertTokenToDecimal, loadTransaction } from "../utils";
+import { FACTORY_ADDRESS, ONE_BI } from "../utils/constants";
 import {
 	updatePoolDayData,
 	updatePoolHourData,
 	updateTokenDayData,
 	updateTokenHourData,
 	updateUniswapDayData,
-} from "../../utils/intervalUpdates";
-import { getTrackedAmountUSD } from "../../utils/pricing";
+} from "../utils/intervalUpdates";
+import { getTrackedAmountUSD } from "../utils/pricing";
 
 export function handleCollect(event: CollectEvent): void {
 	const factoryAddress = FACTORY_ADDRESS;

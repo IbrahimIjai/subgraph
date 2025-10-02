@@ -6,11 +6,11 @@ schema:
 dataSources:
   - kind: ethereum
     name: KoanProfile
-    network: base-sepolia
+    network: base
     source:
-      address: "0x1586E9DBe2EB180bE21075ce2094Eb62F1088734"
+      address: "0x47495dff04fcb5de140b257869ffe01133bfd865"
       abi: KoanProfile
-      startBlock: 30886743
+      startBlock: 35881034
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7

@@ -1,12 +1,12 @@
 import { BigInt } from "@graphprotocol/graph-ts";
 
-import { Bundle, Pool, Token } from "../../../generated/schema";
-import { Initialize } from "../../../generated/templates/Pool/Pool";
+import { Bundle, Pool, Token } from "../../generated/schema";
+import { Initialize } from "../../generated/templates/Pool/Pool";
 import {
 	updatePoolDayData,
 	updatePoolHourData,
-} from "../../utils/intervalUpdates";
-import { findEthPerToken, getEthPriceInUSD } from "../../utils/pricing";
+} from "../utils/intervalUpdates";
+import { findEthPerToken, getEthPriceInUSD } from "../utils/pricing";
 
 export function handleInitialize(event: Initialize): void {
 	// update pool sqrt price and tick

@@ -1,22 +1,21 @@
 import {  BigDecimal, BigInt } from "@graphprotocol/graph-ts";
-import { Swap as SwapEvent } from "../../../generated/templates/Pool/Pool";
-import { convertTokenToDecimal, loadTransaction, safeDiv } from "../../utils";
-import { FACTORY_ADDRESS, ONE_BI, ZERO_BD } from "../../utils/constants";
+import { Swap as SwapEvent } from "../../generated/templates/Pool/Pool";
+import { convertTokenToDecimal, loadTransaction, safeDiv } from "../utils";
+import { FACTORY_ADDRESS, ONE_BI, ZERO_BD } from "../utils/constants";
 import {
 	updatePoolDayData,
 	updatePoolHourData,
 	updateTokenDayData,
 	updateTokenHourData,
 	updateUniswapDayData,
-} from "../../utils/intervalUpdates";
+} from "../utils/intervalUpdates";
 import {
 	findEthPerToken,
 	getEthPriceInUSD,
 	getTrackedAmountUSD,
 	sqrtPriceX96ToTokenPrices,
-} from "../../utils/pricing";
-import { Bundle, Factory, Pool, Swap, Token } from "../../../generated/schema";
-import { updateUserSwapActivity } from "../../utils/user";
+} from "../utils/pricing";
+import { Bundle, Factory, Pool, Swap, Token } from "../../generated/schema";
 
 export function handleSwap(event: SwapEvent): void {
 	const factoryAddress =FACTORY_ADDRESS;
@@ -83,15 +82,8 @@ export function handleSwap(event: SwapEvent): void {
 		const feesUSD = amountTotalUSDTracked
 			.times(pool.feeTier.toBigDecimal())
 			.div(BigDecimal.fromString("1000000"));
-
-		// === USER TRACKING === //
-		// Track the swap activity for the transaction origin (the actual user)
+			
 		const transaction = loadTransaction(event);
-		updateUserSwapActivity(
-			event.transaction.from,
-			amountTotalUSDTracked,
-		);
-		// === END USER TRACKING === //
 
 		// global updates
 		factory.txCount = factory.txCount.plus(ONE_BI);

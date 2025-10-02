@@ -7,17 +7,17 @@ import {
 	Pool,
 	Tick,
 	Token,
-} from "../../../generated/schema";
-import { Burn as BurnEvent } from "../../../generated/templates/Pool/Pool";
-import { convertTokenToDecimal, loadTransaction } from "../../utils";
-import { FACTORY_ADDRESS, ONE_BI } from "../../utils/constants";
+} from "../../generated/schema";
+import { Burn as BurnEvent } from "../../generated/templates/Pool/Pool";
+import { convertTokenToDecimal, loadTransaction } from "../utils";
+import { FACTORY_ADDRESS, ONE_BI } from "../utils/constants";
 import {
 	updatePoolDayData,
 	updatePoolHourData,
 	updateTokenDayData,
 	updateTokenHourData,
 	updateUniswapDayData,
-} from "../../utils/intervalUpdates";
+} from "../utils/intervalUpdates";
 
 export function handleBurn(event: BurnEvent): void {
 	const factoryAddress = FACTORY_ADDRESS;
