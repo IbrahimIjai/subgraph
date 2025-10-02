@@ -28,7 +28,6 @@ import {
 	log,
 } from "@graphprotocol/graph-ts";
 import { convertTokenToDecimal, loadTransaction } from "../utils";
-import { loadUser } from "../utils/user";
 
 function getPosition(event: ethereum.Event, tokenId: BigInt): Position | null {
 	let position = Position.load(tokenId.toString());
@@ -176,7 +175,6 @@ export function handleIncreaseLiquidity(event: IncreaseLiquidity): void {
 		.times(token0.derivedETH.times(bundle.ethPriceUSD))
 		.plus(amount1.times(token1.derivedETH.times(bundle.ethPriceUSD)));
 	position.amountDepositedUSD = position.amountDepositedUSD.plus(newDepositUSD);
-	updateUserIncreaseActivity(position.owner, newDepositUSD);
 	updateFeeVars(position!, event, event.params.tokenId);
 
 	position.save();
@@ -285,14 +283,3 @@ export function handleTransfer(event: Transfer): void {
 	savePositionSnapshot(position!, event);
 }
 
-export function updateUserIncreaseActivity(
-	userAddress: Address,
-	amountUSD: BigDecimal,
-): void {
-	const user = loadUser(userAddress);
-
-	user.increaseCount = user.increaseCount.plus(ONE_BI);
-	user.totalVolumeUSD = user.totalVolumeUSD.plus(amountUSD);
-
-	user.save();
-}

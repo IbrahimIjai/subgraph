@@ -1,4 +1,4 @@
-import { Address, BigInt } from "@graphprotocol/graph-ts";
+import { BigInt } from "@graphprotocol/graph-ts";
 
 import {
 	Bundle,
@@ -19,13 +19,12 @@ import {
 	updateUniswapDayData,
 } from "../utils/intervalUpdates";
 import { createTick } from "../utils/tick";
-import { updateUserMintActivity } from "../utils/user";
 
 export function handleMint(event: MintEvent): void {
 	const factoryAddress = FACTORY_ADDRESS;
 
 	const bundle = Bundle.load("1")!;
-	let poolAddress = event.address.toHexString();
+	const poolAddress = event.address.toHexString();
 	const pool = Pool.load(poolAddress)!;
 	const factory = Factory.load(factoryAddress.toHexString())!;
 
@@ -45,15 +44,7 @@ export function handleMint(event: MintEvent): void {
 		const amountUSD = amount0
 			.times(token0.derivedETH.times(bundle.ethPriceUSD))
 			.plus(amount1.times(token1.derivedETH.times(bundle.ethPriceUSD)));
-
-		// === USER TRACKING === //
-		// Track mint activity for the position owner
 		const transaction = loadTransaction(event);
-		updateUserMintActivity(
-			event.params.owner,
-			amountUSD,
-		);
-		// === END USER TRACKING === //
 
 		// reset tvl aggregates until new amounts calculated
 		factory.totalValueLockedETH = factory.totalValueLockedETH.minus(

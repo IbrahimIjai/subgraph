@@ -1,4 +1,4 @@
-import {  BigDecimal, BigInt } from "@graphprotocol/graph-ts";
+import { BigDecimal, BigInt } from "@graphprotocol/graph-ts";
 import { Swap as SwapEvent } from "../../generated/templates/Pool/Pool";
 import { convertTokenToDecimal, loadTransaction, safeDiv } from "../utils";
 import { FACTORY_ADDRESS, ONE_BI, ZERO_BD } from "../utils/constants";
@@ -18,19 +18,13 @@ import {
 import { Bundle, Factory, Pool, Swap, Token } from "../../generated/schema";
 
 export function handleSwap(event: SwapEvent): void {
-	const factoryAddress =FACTORY_ADDRESS;
+	const factoryAddress = FACTORY_ADDRESS;
 
 	const bundle = Bundle.load("1")!;
 	const factory = Factory.load(factoryAddress.toHexString())! as Factory;
 	const pool = Pool.load(event.address.toHexString())! as Pool;
 
-	// hot fix for bad pricing
-	// if (
-	// 	pool.id.toHexString().toLowerCase() ==
-	// 	"0x9663f2ca0454accad3e094448ea6f77443880454"
-	// ) {
-	// 	return;
-	// }
+	// hot fix for bad pricing (kept out for this deployment; add chain-specific addresses if needed)
 
 	const token0 = Token.load(pool.token0);
 	const token1 = Token.load(pool.token1);
@@ -82,7 +76,7 @@ export function handleSwap(event: SwapEvent): void {
 		const feesUSD = amountTotalUSDTracked
 			.times(pool.feeTier.toBigDecimal())
 			.div(BigDecimal.fromString("1000000"));
-			
+
 		const transaction = loadTransaction(event);
 
 		// global updates
@@ -267,7 +261,6 @@ export function handleSwap(event: SwapEvent): void {
 		token1DayData.save();
 		uniswapDayData.save();
 		poolDayData.save();
-		poolHourData.save();
 		token0HourData.save();
 		token1HourData.save();
 		poolHourData.save();
