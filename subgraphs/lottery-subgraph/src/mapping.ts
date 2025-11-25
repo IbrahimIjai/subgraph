@@ -31,7 +31,7 @@ export function handleLotteryOpen(event: LotteryOpen): void {
 }
 
 export function handleLotteryClose(event: LotteryClose): void {
-	let lottery = new Lottery(event.params.lotteryId.toString());
+	let lottery = Lottery.load(event.params.lotteryId.toString());
 	if (lottery !== null) {
 		lottery.status = "Close";
 		lottery.lastTicket = event.params.firstTicketIdNextLottery;
@@ -40,7 +40,7 @@ export function handleLotteryClose(event: LotteryClose): void {
 }
 
 export function handleLotteryNumberDrawn(event: LotteryNumberDrawn): void {
-	let lottery = new Lottery(event.params.lotteryId.toString());
+	let lottery = Lottery.load(event.params.lotteryId.toString());
 	if (lottery !== null) {
 		lottery.status = "Claimable";
 		lottery.finalNumber = event.params.finalNumber;
@@ -56,6 +56,7 @@ export function handleTicketsPurchase(event: TicketsPurchase): void {
 		log.warning("Trying to purchase tickets for an unknown lottery - #{}", [
 			event.params.lotteryId.toString(),
 		]);
+		return;
 	}
 	lottery.totalTickets = lottery.totalTickets.plus(event.params.numberTickets);
 	lottery.save();
@@ -103,7 +104,11 @@ export function handleTicketsPurchase(event: TicketsPurchase): void {
 export function handleTicketsClaim(event: TicketsClaim): void {
 	let lottery = Lottery.load(event.params.lotteryId.toString());
 	if (lottery !== null) {
-		lottery.claimedTickets = lottery.claimedTickets.plus(
+		let currentClaimedTickets = lottery.claimedTickets;
+		if (currentClaimedTickets === null) {
+			currentClaimedTickets = ZERO_BI;
+		}
+		lottery.claimedTickets = currentClaimedTickets.plus(
 			event.params.numberTickets,
 		);
 		lottery.save();

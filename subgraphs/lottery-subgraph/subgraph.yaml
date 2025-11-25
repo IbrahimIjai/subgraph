@@ -8,7 +8,7 @@ dataSources:
     name: Lottery
     network: base-sepolia
     source:
-      address: "0xe3e4137f6A92cA72e152cbeB7A935494d063eeFa"
+      address: "0xfdfB8DcdC14DD16cad24b8D5DF8F2E31388E5b59"
       abi: Lottery
       startBlock: 30886743
     mapping:

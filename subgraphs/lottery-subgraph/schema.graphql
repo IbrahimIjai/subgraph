@@ -5,9 +5,6 @@ enum Status {
   Claimable
 }
 
-"""
-Koanprotocol Lottery
-"""
 type Lottery @entity {
   "ID"
   id: ID!
