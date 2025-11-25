@@ -10,7 +10,7 @@ dataSources:
     source:
       address: "0xfdfB8DcdC14DD16cad24b8D5DF8F2E31388E5b59"
       abi: Lottery
-      startBlock: 30886743
+      startBlock: 33420791
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
@@ -21,7 +21,7 @@ dataSources:
         - Round
       abis:
         - name: Lottery
-          file: ./abis/lottery.json
+          file: ./src/abis/Lottery.json
       eventHandlers:
         - event: LotteryOpen(indexed uint256,uint256,uint256,uint256,uint256,uint256)
           handler: handleLotteryOpen
@@ -33,4 +33,4 @@ dataSources:
           handler: handleTicketsPurchase
         - event: TicketsClaim(indexed address,uint256,indexed uint256,uint256)
           handler: handleTicketsClaim
-      file: ./src/mapping.ts
+      file: ./src/mappings/index.ts
